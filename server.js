@@ -7,6 +7,9 @@ import morgan from 'morgan'
 import { dirname } from 'path'
 import { fileURLToPath } from 'url'
 import path from 'path'
+import cors from 'cors'
+
+
 
 // db and authenticateUser
 import connectDB from './db/connect.js'
@@ -27,6 +30,12 @@ const __dirname = dirname(fileURLToPath(import.meta.url))
 app.use(express.json())
 
 app.use(express.static(path.resolve(__dirname, './client/build')))
+
+app.use(cors({
+    origin: "https://anju-mern-frontend.vercel.app",
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE"],
+}));
 
 if(process.env.NODE_ENV !== 'production'){
     app.use(morgan('dev'))
